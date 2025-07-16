@@ -28,13 +28,13 @@ WIN:CON:ENABLE_LVB_GRID_WORLDWIDE           EQUATE(0010h)
 WIN:CON:NEW_LINE_STR            CSTRING('<13,10>') !/r/n new line
 
                     MAP
-                        MODULE('Console.CLW')
+                        MODULE('WindowsConsole.CLW')
                             WIN:CON:AttachOrCreateConsole(),BOOL,PROC
                             WIN:CON:InitializeConsole(),BOOL
                         END
                     END
 
-WIN:CON:_Base  CLASS,MODULE('Console.CLW'), TYPE
+WIN:CON:_Base  CLASS,MODULE('WindowsConsole.CLW'), TYPE
 handle                  WIN:HANDLE(WIN:INVALID_HANDLE_VALUE)
 byteCount               ULONG
 
@@ -50,8 +50,8 @@ removeConsoleMode       PROCEDURE(WIN:DWORD modeFlag), BOOL, PROC ! Removes a co
                     END
 
 
-!WIN:CON:Writer      CLASS(WIN:CON:_Base), MODULE('Console.CLW'), LINK('Console.CLW',_ABCLinkMode_), DLL(_ABCDllMode_), TYPE
-WIN:CON:Writer      CLASS(WIN:CON:_Base), MODULE('Console.CLW'), LINK('Console.CLW',_ABCLinkMode_), TYPE
+!WIN:CON:Writer      CLASS(WIN:CON:_Base), MODULE('WindowsConsole.CLW'), LINK('WindowsConsole.CLW',_ABCLinkMode_), DLL(_ABCDllMode_), TYPE
+WIN:CON:Writer      CLASS(WIN:CON:_Base), MODULE('WindowsConsole.CLW'), LINK('WindowsConsole.CLW',_ABCLinkMode_), TYPE
 Construct                       PROCEDURE()
 Destructor                      PROCEDURE()
 init                            PROCEDURE(), BOOL,PROC
@@ -67,7 +67,7 @@ writeLine                       PROCEDURE(CONST *STRING strToWrite) ,BOOL,PROC
 writeLine                       PROCEDURE(STRING strToWrite), BOOL, PROC
                     END
 
-WIN:CON:Reader      CLASS(WIN:CON:_Base), MODULE('Console.CLW'), LINK('Console.CLW',_ABCLinkMode_), TYPE
+WIN:CON:Reader      CLASS(WIN:CON:_Base), MODULE('WindowsConsole.CLW'), LINK('WindowsConsole.CLW',_ABCLinkMode_), TYPE
 init                            PROCEDURE (),BOOL,PROC
 !init                            PROCEDURE (BOOL enableLineInput),BOOL,PROC !set the console mode to line input if enableLineInput is true
 getBytesRead                    PROCEDURE(),ULONG
@@ -77,7 +77,7 @@ readLine 			            PROCEDURE (),STRING
 
 
 
-WIN:CON:ConsoleRW   CLASS, MODULE('Console.CLW'), LINK('Console.CLW',_ABCLinkMode_), TYPE
+WIN:CON:ConsoleRW   CLASS, MODULE('WindowsConsole.CLW'), LINK('WindowsConsole.CLW',_ABCLinkMode_), TYPE
 writer                  &WIN:CON:Writer
 reader                  &WIN:CON:Reader
 

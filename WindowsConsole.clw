@@ -1,7 +1,7 @@
 
 
   MEMBER()
-    INCLUDE('Console.inc'),ONCE
+    INCLUDE('WindowsConsole.inc'),ONCE
 
   MAP
         MODULE('WinConsoleAPI')
