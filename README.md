@@ -7,6 +7,7 @@ The general theme is implementing "namespaces" for the different aspects of the 
 This is not comprehensive, and I will only add functions as I need.
 
 ##  To Use
+> This has only been used with the latest version of Clarion (12).
 
 Include  the files directory in your Clarion project. 
 OR
@@ -18,7 +19,13 @@ In the IDE, Tools -> Options -> Clarion -> Versions -> Directories scanned for A
 <img width="716" height="526" alt="image" src="https://github.com/user-attachments/assets/f83b5b16-4acc-42c9-ab52-92b0be865149" />
 
 ### But that did not work?
-I have been unable to get Clarion to find classes in any other directory than %ROOT%\LibSrc\win (%ROOT% = Install directory "C:\Clarion12" for me), but addind the directory to the redirect file does work.
+I have been unable to get Clarion to find classes in any other directory than %ROOT%\LibSrc\win (%ROOT% = Install directory "C:\Clarion12" for me), but adding the directory to the redirect file does work.
 
+In the IDE, Tools -> Edit base redirection file -> (Current Version)
 
-###### This has only been used with the latest version of Clarion (12).
+<img width="549" height="532" alt="image" src="https://github.com/user-attachments/assets/6446fe1a-3477-481a-8d45-baf186f5d713" />
+
+Add the path to the directory to the "*.*" search criteria under the "[Common]" section.
+  <code> *.*   = .; %ROOT%\libsrc\win; %ROOT%\libsrc\custom\ClarionWindowsLibrary; %ROOT%\images; %ROOT%\template\win; %ROOT%\convsrc </code>
+
+<img width="1045" height="403" alt="image" src="https://github.com/user-attachments/assets/f421a995-9f71-4dfd-a493-4069e663a71d" />
