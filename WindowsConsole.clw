@@ -167,19 +167,7 @@ WIN:CON:Reader.init  PROCEDURE()
         IF SELF.init(WIN:CON:GetStdHandle(WIN:CON:STD_INPUT_HANDLE)) THEN
             RETURN SELF.setConsoleMode(WIN:CON:ENABLE_PROCESSED_INPUT)
         END
-        RETURN FALSE
-        
-!WIN:CON:Reader.init  PROCEDURE(BOOL enableLineInput)
-!    CODE        
-!        IF SELF.init(WIN:CON:GetStdHandle(WIN:CON:STD_INPUT_HANDLE)) THEN
-!            IF SELF.setConsoleMode(WIN:CON:ENABLE_PROCESSED_INPUT) THEN
-!                IF enableLineInput THEN
-!                    SELF.addConsoleMode(WIN:CON:ENABLE_LINE_INPUT)
-!                END
-!                RETURN TRUE
-!            END
-!        END
-!        RETURN FALSE        
+        RETURN FALSE    
         
 WIN:CON:Reader.getBytesRead PROCEDURE()
     CODE

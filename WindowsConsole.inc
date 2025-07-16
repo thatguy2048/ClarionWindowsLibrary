@@ -69,7 +69,6 @@ writeLine                       PROCEDURE(STRING strToWrite), BOOL, PROC
 
 WIN:CON:Reader      CLASS(WIN:CON:_Base), MODULE('WindowsConsole.CLW'), LINK('WindowsConsole.CLW',_ABCLinkMode_), TYPE
 init                            PROCEDURE (),BOOL,PROC
-!init                            PROCEDURE (BOOL enableLineInput),BOOL,PROC !set the console mode to line input if enableLineInput is true
 getBytesRead                    PROCEDURE(),ULONG
 read                            PROCEDURE(*CSTRING outputBuffer, WIN:DWORD bufferLength),BOOL,PROC
 readLine 			            PROCEDURE (),STRING
