@@ -26,6 +26,7 @@ In the IDE, Tools -> Edit base redirection file -> (Current Version)
 <img width="549" height="532" alt="image" src="https://github.com/user-attachments/assets/6446fe1a-3477-481a-8d45-baf186f5d713" />
 
 Add the path to the directory to the "*.*" search criteria under the "[Common]" section.
+  
   <code> *.*   = .; %ROOT%\libsrc\win; %ROOT%\libsrc\custom\ClarionWindowsLibrary; %ROOT%\images; %ROOT%\template\win; %ROOT%\convsrc </code>
 
 <img width="1045" height="403" alt="image" src="https://github.com/user-attachments/assets/f421a995-9f71-4dfd-a493-4069e663a71d" />
