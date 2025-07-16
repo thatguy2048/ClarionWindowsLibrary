@@ -1,30 +1,33 @@
 !ABCIncludeFile(WindowsExt)
-
+INCLUDE('windows.inc')
 !Redefiend WINDOWS.INC methods to conform with naming scheme
 
-NULL                    EQUATE(0)
-VOID                    EQUATE(LONG)
+NULL                EQUATE(0)
+VOID                EQUATE(LONG)
 
-WIN:NULL                EQUATE(NULL)
+WIN:NULL            EQUATE(NULL)
 
-WIN:HANDLE                  EQUATE(LONG)
-WIN:HWND                    EQUATE(WIN:HANDLE)
-WIN:HINSTANCE               EQUATE(WIN:HANDLE)
-WIN:HMODULE                 EQUATE(WIN:HANDLE)
-WIN:HMENU                   EQUATE(WIN:HANDLE)
-WIN:HDC                     EQUATE(WIN:HANDLE)
-WIN:HICON                   EQUATE(WIN:HANDLE)
-WIN:HCURSOR                 EQUATE(WIN:HANDLE)
-WIN:HBRUSH                  EQUATE(WIN:HANDLE)
-WIN:HBITMAP                 EQUATE(WIN:HANDLE)
-WIN:HGDIOBJ                 EQUATE(WIN:HANDLE)
-WIN:HFONT                   EQUATE(WIN:HANDLE)
-WIN:HRGN                    EQUATE(WIN:HANDLE)
-WIN:HGLOBAL                 EQUATE(WIN:HANDLE)
-WIN:HPEN                    EQUATE(WIN:HANDLE)
-WIN:HRESULT                 EQUATE(LONG)
-WIN:DWORD                   EQUATE(ULONG)
-WIN:VOID                    EQUATE(VOID)
+WIN:HANDLE          EQUATE(LONG)
+WIN:HWND            EQUATE(WIN:HANDLE)
+WIN:HINSTANCE       EQUATE(WIN:HANDLE)
+WIN:HMODULE         EQUATE(WIN:HANDLE)
+WIN:HMENU           EQUATE(WIN:HANDLE)
+WIN:HDC             EQUATE(WIN:HANDLE)
+WIN:HICON           EQUATE(WIN:HANDLE)
+WIN:HCURSOR         EQUATE(WIN:HANDLE)
+WIN:HBRUSH          EQUATE(WIN:HANDLE)
+WIN:HBITMAP         EQUATE(WIN:HANDLE)
+WIN:HGDIOBJ         EQUATE(WIN:HANDLE)
+WIN:HFONT           EQUATE(WIN:HANDLE)
+WIN:HRGN            EQUATE(WIN:HANDLE)
+WIN:HGLOBAL         EQUATE(WIN:HANDLE)
+WIN:HPEN            EQUATE(WIN:HANDLE)
+WIN:HRESULT         EQUATE(LONG)
+WIN:WORD            EQUATE(LONG)
+WIN:DWORD           EQUATE(ULONG)
+WIN:VOID            EQUATE(VOID)
+WIN:SHORT           EQUATE(SHORT)
+
 
 ! Not defining pointers, as they are better represented by using *TYPE notation
 ! LPCSTR                  EQUATE(CSTRING)
@@ -40,13 +43,29 @@ WIN:LPVOID                  EQUATE(LONG) !Using *VOID in the function definition
 WIN:ERROR_CODE              EQUATE(WIN:DWORD) ! Windows error code
 WIN:NO_ERROR                EQUATE(0)
 
-WIN:INVALID_HANDLE_VALUE        EQUATE(-1)
+WIN:INVALID_HANDLE_VALUE    EQUATE(-1)
+
+!Common HRESULT Values, although more can exist https://learn.microsoft.com/en-us/windows/win32/seccrypto/common-hresult-values
+WIN:HRESULT:VALUE   ITEMIZE,PRE
+S_OK                    EQUATE(0)
+E_ABORT                 EQUATE(80004004H)
+E_ACCESSDENIED          EQUATE(80070005H)
+E_FAIL                  EQUATE(80004005H)
+E_HANDLE                EQUATE(80070006H)
+E_INVALIDARG            EQUATE(80070057H)
+E_NOINTERFACE           EQUATE(80004002H)
+E_NOTIMPL               EQUATE(80004001H)
+E_OUTOFMEMORY           EQUATE(8007000EH)
+E_POINTER               EQUATE(80004003H)
+E_UNEXPECTED            EQUATE(8000FFFFH)
+                    END
+
 
 WIN:UUID GROUP,TYPE
-Data1 ULONG
-Data2 USHORT
-Data3 USHORT
-Data4 STRING(8)
+Data1           ULONG
+Data2           USHORT
+Data3           USHORT
+Data4           STRING(8)
 END
 
     MAP
@@ -58,7 +77,7 @@ END
             WIN:FreeLibrary(WIN:HMODULE hModule),BOOL,PASCAL,PROC,NAME('FreeLibrary')
             WIN:GetDC(WIN:HWND),WIN:HDC,PASCAL,PROC,NAME('GetDC')
             WIN:GetDeviceCaps(WIN:HDC, SIGNED),SIGNED,PASCAL,NAME('GetDeviceCaps')
-            WIN:GetLastError(),LONG,PASCAL,NAME('GetLastError')
+            !WIN:GetLastError(),LONG,PASCAL,NAME('GetLastError')
             WIN:GetOpenFileName(LONG),pascal,bool,proc,name('GetOpenFileNameA')
             WIN:GetPrivateProfileString(*WIN:LPCSTR,*WIN:LPCSTR,*WIN:LPCSTR,*WIN:LPCSTR,WIN:DWORD,*WIN:LPCSTR),WIN:DWORD,PASCAL,RAW,NAME('GetPrivateProfileStringA')
             WIN:GetProcAddress(WIN:HMODULE hModule, *CSTRING szProcName),LONG,PASCAL,RAW,NAME('GetProcAddress')

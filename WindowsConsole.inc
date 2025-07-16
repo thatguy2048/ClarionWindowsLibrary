@@ -4,33 +4,44 @@
 
 
 !IO Handle
-WIN:CON:STD_INPUT_HANDLE    EQUATE(-10)
-WIN:CON:STD_OUTPUT_HANDLE   EQUATE(-11)
-WIN:CON:STD_ERROR_HANDLE    EQUATE(-12)
+WIN:CON:STD_HANDLE  ITEMIZE,PRE
+INPUT                   EQUATE(-10)
+OUTPUT                  EQUATE(-11)
+ERROR                   EQUATE(-12)
+                    END
 
 !Input Console Mode Flags https://learn.microsoft.com/en-us/windows/console/setconsolemode
-WIN:CON:ENABLE_ECHO_INPUT               EQUATE(0004h)
-WIN:CON:ENABLE_INSERT_MODE              EQUATE(0020h)
-WIN:CON:ENABLE_LINE_INPUT               EQUATE(02h)
-WIN:CON:ENABLE_MOUSE_INPUT              EQUATE(0010h)
-WIN:CON:ENABLE_PROCESSED_INPUT          EQUATE(01h)
-WIN:CON:ENABLE_QUICK_EDIT_MODE          EQUATE(040h)
-WIN:CON:ENABLE_WINDOW_INPUT             EQUATE(0008h)
-WIN:CON:ENABLE_VIRTUAL_TERMINAL_INPUT   EQUATE(0200h)
+WIN:CON:INPUT_MODE_FLAGS    ITEMIZE,PRE
+ECHO_INPUT                      EQUATE(0004h)
+INSERT_MODE                     EQUATE(0020h)
+LINE_INPUT                      EQUATE(02h)
+MOUSE_INPUT                     EQUATE(0010h)
+PROCESSED_INPUT                 EQUATE(01h)
+QUICK_EDIT_MODE                 EQUATE(040h)
+WINDOW_INPUT                    EQUATE(0008h)
+VIRTUAL_TERMINAL_INPUT          EQUATE(0200h)
+                            END
 
 !Output Console Mode Flags
-WIN:CON:ENABLE_PROCESSED_OUTPUT             EQUATE(0001h)
-WIN:CON:ENABLE_WRAP_AT_EOL_OUTPUT           EQUATE(0002h)
-WIN:CON:ENABLE_VIRTUAL_TERMINAL_PROCESSING  EQUATE(0004h)
-WIN:CON:DISABLE_NEWLINE_AUTO_RETURN         EQUATE(0008h)
-WIN:CON:ENABLE_LVB_GRID_WORLDWIDE           EQUATE(0010h)
+WIN:CON:OUTPUT_MODE_FLAGS   ITEMIZE,PRE
+PROCESSED_OUTPUT                EQUATE(0001h)
+WRAP_AT_EOL_OUTPUT              EQUATE(0002h)
+VIRTUAL_TERMINAL_PROCESSING     EQUATE(0004h)
+DISABLE_NEWLINE_AUTO_RETURN     EQUATE(0008h)
+LVB_GRID_WORLDWIDE              EQUATE(0010h)
+                            END
+
 
 WIN:CON:NEW_LINE_STR            CSTRING('<13,10>') !/r/n new line
 
                     MAP
+                        MODULE('WinConsoleAPI') ! Some common API functions
+                            WIN:CON:SetTitle(*CSTRING titleStr),BOOL,PROC,RAW,PASCAL,NAME('SetConsoleTitleA') ! Sets the title for the current console window.
+                            WIN:CON:GetTitle(*CSTRING outputTitleBuffer, WIN:DWORD outputTitleBufferSize),BOOL,RAW,PASCAL,NAME('GetConsoleTitleA') ! Retrieves the title for the current console window.
+                        END
                         MODULE('WindowsConsole.CLW')
-                            WIN:CON:AttachOrCreateConsole(),BOOL,PROC
-                            WIN:CON:InitializeConsole(),BOOL
+                            WIN:CON:AttachOrCreate(),BOOL,PROC
+                            WIN:CON:Initialize(),BOOL
                         END
                     END
 
@@ -43,10 +54,10 @@ Destruct                PROCEDURE()
 hasValidHandle          PROCEDURE(), BOOL
 init                    PROCEDURE(WIN:HANDLE), BOOL
 getByteCount            PROCEDURE(), ULONG
-setConsoleMode          PROCEDURE(WIN:DWORD modeFlag), BOOL, PROC
-getConsoleMode          PROCEDURE(*WIN:DWORD outModeFlag), BOOL, PROC
-addConsoleMode          PROCEDURE(WIN:DWORD modeFlag), BOOL, PROC ! Adds a console mode flag to the current console mode
-removeConsoleMode       PROCEDURE(WIN:DWORD modeFlag), BOOL, PROC ! Removes a console mode flag from the current console mode
+setMode          PROCEDURE(WIN:DWORD modeFlag), BOOL, PROC
+getMode          PROCEDURE(*WIN:DWORD outModeFlag), BOOL, PROC
+addMode          PROCEDURE(WIN:DWORD modeFlag), BOOL, PROC ! Adds a console mode flag to the current console mode
+removeMode       PROCEDURE(WIN:DWORD modeFlag), BOOL, PROC ! Removes a console mode flag from the current console mode
                     END
 
 

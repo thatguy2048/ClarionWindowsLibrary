@@ -1,10 +1,6 @@
 MEMBER()
     INCLUDE('WindowsError.inc'),ONCE
 
-WIN:ERR:LastError               PROCEDURE()
-    CODE
-        RETURN WIN:GetLastError();
-
 WIN:ERR:ConvertToString         PROCEDURE(WIN:ERROR_CODE ec)
 dwFlags                                 EQUATE(1200h) !system format the message and don't allocate a buffer
 outputBuffer                            CSTRING(256)
@@ -14,9 +10,9 @@ outputCharsWritten                      WIN:DWORD
         RETURN outputBuffer
 
 
-WIN:ERR:LastErrorString         PROCEDURE()
+WIN:ERR:GetLastString           PROCEDURE()
     CODE
-        RETURN WIN:ERR:ConvertToString(WIN:ERR:LastError())    
+        RETURN WIN:ERR:ConvertToString(WIN:ERR:GetLast())    
 
 WIN:ERR:Container.init          PROCEDURE(WIN:ERROR_CODE ec)
     CODE
