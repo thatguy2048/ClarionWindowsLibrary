@@ -30,3 +30,23 @@ Add the path to the directory to the "\*.\*" search criteria under the "[Common]
   <code> \*.\*   = .; %ROOT%\libsrc\win; %ROOT%\libsrc\custom\ClarionWindowsLibrary; %ROOT%\images; %ROOT%\template\win; %ROOT%\convsrc </code>
 
 <img width="1045" height="403" alt="image" src="https://github.com/user-attachments/assets/f421a995-9f71-4dfd-a493-4069e663a71d" />
+
+## Example Console Application
+```Clarion
+  PROGRAM
+    INCLUDE('WindowsConsole.inc') ! Include the console class/methods
+
+console             WIN:CON:ConsoleRW ! Allocate a console object
+
+    MAP
+    END
+
+  CODE
+        MESSAGE('STARTED');  
+        !Write a message to the console
+        console.writer.writeLine('I have got a console to write too')
+        !Ask for use response using by writing to the console and waiting for a response to read
+        MESSAGE('Read from question: '&console.askForInput('what about you? :'))
+        
+        MESSAGE('FINISHED');
+```
