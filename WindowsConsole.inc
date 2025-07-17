@@ -1,7 +1,10 @@
 !ABCIncludeFile(Console)
 
-    INCLUDE('WindowsExtended.inc'),ONCE    
+OMIT('_END_OF_CODE_',_WINDOWS_CONSOLE_INC_)
+_WINDOWS_CONSOLE_INC_        EQUATE(1)
 
+    INCLUDE('WindowsExtended.inc'),ONCE    
+    INCLUDE('WindowsHandle.inc'),ONCE
 
 !IO Handle
 WIN:CON:STD_HANDLE  ITEMIZE,PRE
@@ -45,12 +48,11 @@ WIN:CON:NEW_LINE_STR            CSTRING('<13,10>') !/r/n new line
                         END
                     END
 
-WIN:CON:_Base  CLASS,MODULE('WindowsConsole.CLW'), TYPE
-handle                  WIN:HANDLE(WIN:INVALID_HANDLE_VALUE)
+WIN:CON:_Base  CLASS(WIN:HAN:Scoped),MODULE('WindowsConsole.CLW'), LINK('WindowsConsole.CLW',_ABCLinkMode_), TYPE
 byteCount               ULONG
 
 Construct               PROCEDURE()
-Destruct                PROCEDURE()
+Destruct                PROCEDURE(),VIRTUAL
 hasValidHandle          PROCEDURE(), BOOL
 init                    PROCEDURE(WIN:HANDLE), BOOL
 getByteCount            PROCEDURE(), ULONG
@@ -64,7 +66,7 @@ removeMode       PROCEDURE(WIN:DWORD modeFlag), BOOL, PROC ! Removes a console m
 !WIN:CON:Writer      CLASS(WIN:CON:_Base), MODULE('WindowsConsole.CLW'), LINK('WindowsConsole.CLW',_ABCLinkMode_), DLL(_ABCDllMode_), TYPE
 WIN:CON:Writer      CLASS(WIN:CON:_Base), MODULE('WindowsConsole.CLW'), LINK('WindowsConsole.CLW',_ABCLinkMode_), TYPE
 Construct                       PROCEDURE()
-Destructor                      PROCEDURE()
+Destructor                      PROCEDURE(),VIRTUAL
 init                            PROCEDURE(), BOOL,PROC
 getBytesWritten                 PROCEDURE(), ULONG
 write                           PROCEDURE(CONST *CSTRING buffer, WIN:DWORD bufferLength), BOOL, PROC
@@ -98,3 +100,4 @@ askForInput             PROCEDURE(STRING question) STRING, PROC ! Print the ques
                     END
 
 
+_END_OF_CODE_

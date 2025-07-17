@@ -29,21 +29,17 @@ WIN:CON:_Base.Construct     PROCEDURE()
        
 WIN:CON:_Base.Destruct       PROCEDURE()
     CODE
-        IF self.hasValidHandle() THEN
-            WIN:CloseHandle(SELF.handle);
-        END        
+!        IF self.hasValidHandle() THEN
+!            WIN:CloseHandle(SELF.handle);
+!        END        
 
 WIN:CON:_Base.hasValidHandle        PROCEDURE()
     CODE
-        IF (self.handle ~= WIN:NULL AND self.handle ~= WIN:INVALID_HANDLE_VALUE) THEN
-            RETURN TRUE
-        END
-        RETURN FALSE
+        return SELF.isValid()
         
 WIN:CON:_Base.init    PROCEDURE (WIN:HANDLE newHandle)
     CODE
-        !MESSAGE('INIT WITH HANDLE '&newHandle)
-        self.handle = newHandle
+        SELF.reset(newHandle)
         RETURN self.hasValidHandle()
             
     

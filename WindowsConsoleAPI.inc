@@ -1,6 +1,9 @@
 ! Define the windows console commands that are part of the WIN32 api
 ! These are in a separate file so the "WIN:CON" 'namespace' is not saturated (unless these functions are needed)
 
+OMIT('_END_OF_CODE_',_WINDOWS_CONSOLE_API_INC_)
+_WINDOWS_CONSOLE_API_INC_        EQUATE(1)
+
 INCLUDE('WindowsExtended.inc'),ONCE
 
 ! The possible results from allocating a console with options
@@ -49,3 +52,5 @@ bottom                  WIN:SHORT ! The y coordinate of the lower right corner
             WIN:CON:SetWindowInfo(WIN:HANDLE outputConsoleHandle, BOOL isAbsolute, *WIN:CON:SMALL_RECT),BOOL,PROC,PASCAL,RAW,NAME('SetConsoleWindowInfo') ! Set the windows position of an output console
         END
     END
+
+_END_OF_CODE_

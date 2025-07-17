@@ -1,5 +1,8 @@
 !ABCIncludeFile(WindowsError)
 
+OMIT('_END_OF_CODE_',_WINDOWS_ERROR_INC_)
+_WINDOWS_ERROR_INC_ EQUATE(1)
+
 INCLUDE('WindowsExtended.inc'),ONCE
 
     MAP
@@ -20,3 +23,5 @@ errorCode           WIN:ERROR_CODE
 init                PROCEDURE(WIN:ERROR_CODE ec)
 toString            PROCEDURE(),STRING
                     END
+
+_END_OF_CODE_
