@@ -73,20 +73,17 @@ tmpMode                                         WIN:DWORD
         RETURN FALSE
         
 
-
-
 !!ConsoleWriter!!
 WIN:CON:Writer.Construct     PROCEDURE()
     CODE
         !MESSAGE('WRITER CONSTRUCTOR');       
         
-WIN:CON:Writer.Destructor     PROCEDURE()
+WIN:CON:Writer.Destruct     PROCEDURE()
     CODE
         SELF.writeLine()         
         
 WIN:CON:Writer.init  PROCEDURE ()
     CODE
-        !MESSAGE('INIT WRITER')
         RETURN self.init(WIN:CON:GetStdHandle(WIN:CON:STD_HANDLE:OUTPUT))
     
 WIN:CON:Writer.getBytesWritten      PROCEDURE()

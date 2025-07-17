@@ -52,7 +52,7 @@ WIN:CON:_Base  CLASS(WIN:HAN:Scoped),MODULE('WindowsConsole.CLW'), LINK('Windows
 byteCount               ULONG
 
 Construct               PROCEDURE()
-Destruct                PROCEDURE(),VIRTUAL
+Destruct                PROCEDURE()
 hasValidHandle          PROCEDURE(), BOOL
 init                    PROCEDURE(WIN:HANDLE), BOOL
 getByteCount            PROCEDURE(), ULONG
@@ -66,7 +66,7 @@ removeMode       PROCEDURE(WIN:DWORD modeFlag), BOOL, PROC ! Removes a console m
 !WIN:CON:Writer      CLASS(WIN:CON:_Base), MODULE('WindowsConsole.CLW'), LINK('WindowsConsole.CLW',_ABCLinkMode_), DLL(_ABCDllMode_), TYPE
 WIN:CON:Writer      CLASS(WIN:CON:_Base), MODULE('WindowsConsole.CLW'), LINK('WindowsConsole.CLW',_ABCLinkMode_), TYPE
 Construct                       PROCEDURE()
-Destructor                      PROCEDURE(),VIRTUAL
+Destruct                        PROCEDURE()
 init                            PROCEDURE(), BOOL,PROC
 getBytesWritten                 PROCEDURE(), ULONG
 write                           PROCEDURE(CONST *CSTRING buffer, WIN:DWORD bufferLength), BOOL, PROC

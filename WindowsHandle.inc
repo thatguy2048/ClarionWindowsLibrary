@@ -33,7 +33,7 @@ PROTECT_FROM_CLOSE      EQUATE(2)
 WIN:HAN:Scoped      CLASS,MODULE('WindowsHandle.CLW'),LINK('WindowsHandle.CLW',_ABCLinkMode_),TYPE ! Closes a handle on destruction
 handle                  WIN:HANDLE(WIN:HAN:INVALID_VALUE), PROTECTED
 
-Destructor              PROCEDURE(),VIRTUAL
+Destruct                PROCEDURE()
 isValid                 PROCEDURE(),BOOL, PROTECTED
 get                     PROCEDURE(),WIN:HAN:VALUE, PROTECTED ! get a copy of the handle value (not a handle copy)
 release                 PROCEDURE(WIN:HAN:VALUE newValue = WIN:HAN:INVALID_VALUE),WIN:HAN:VALUE, PROTECTED ! get the current handle value, and set the stored value to the new value

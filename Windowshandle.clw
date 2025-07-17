@@ -7,8 +7,8 @@ WIN:HAN:IsValid     PROCEDURE(WIN:HANDLE handleToCheck)
             RETURN TRUE
         END
         RETURN FALSE
-
-WIN:HAN:Scoped.Destructor   PROCEDURE()
+        
+WIN:HAN:Scoped.Destruct     PROCEDURE()
     CODE
         IF self.isValid() THEN
             WIN:HAN:Close(SELF.handle)
