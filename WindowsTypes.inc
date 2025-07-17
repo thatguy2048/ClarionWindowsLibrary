@@ -3,10 +3,7 @@
 OMIT('_END_OF_CODE_',_WINDOWS_TYPE_INC_)
 _WINDOWS_TYPE_INC_ EQUATE(1)
 
-NULL                EQUATE(0)
-VOID                EQUATE(LONG)
-
-WIN:NULL            EQUATE(NULL)
+WIN:NULL            EQUATE(0)
 
 WIN:HANDLE          EQUATE(LONG)
 WIN:HWND            EQUATE(WIN:HANDLE)
@@ -26,8 +23,9 @@ WIN:HPEN            EQUATE(WIN:HANDLE)
 WIN:HRESULT         EQUATE(LONG)
 WIN:WORD            EQUATE(LONG)
 WIN:DWORD           EQUATE(ULONG)
-WIN:VOID            EQUATE(VOID)
+WIN:VOID            EQUATE(LONG)
 WIN:SHORT           EQUATE(SHORT)
+WIN:BYTE            EQUATE(BYTE)
 
 ! Not defining pointers, as they are better represented by using *TYPE notation
 ! LPCSTR                  EQUATE(CSTRING)
@@ -35,7 +33,8 @@ WIN:SHORT           EQUATE(SHORT)
 ! LPVOID                  EQUATE(LONG)
 ! LPCVOID                 EQUATE(LONG)
 ! PLONG                   EQUATE(LONG)
-WIN:LPVOID                  EQUATE(LONG) !Using *VOID in the function definitions caused errors
+WIN:LPVOID          EQUATE(LONG) !Using *VOID in the function definitions caused errors
+WIN:CSTR            EQUATE(CSTRING)
 
 !TRUE                    EQUATE(1) !In EQUATES.CLW
 !FALSE                   EQUATE(0) !In EQUATES.CLW
@@ -44,5 +43,10 @@ WIN:ERROR_CODE              EQUATE(WIN:DWORD) ! Windows error code
 WIN:NO_ERROR                EQUATE(0)
 
 WIN:INVALID_HANDLE_VALUE    EQUATE(-1)
+
+WIN:LARGE_INT       GROUP,TYPE
+low                     WIN:DWORD
+hight                   WIN:WORD
+                    END
 
 _END_OF_CODE_

@@ -3,7 +3,7 @@
 OMIT('_END_OF_CODE_',_WINDOWS_CONSOLE_INC_)
 _WINDOWS_CONSOLE_INC_        EQUATE(1)
 
-    INCLUDE('WindowsExtended.inc'),ONCE    
+    INCLUDE('WindowsTypes.inc'),ONCE    
     INCLUDE('WindowsHandle.inc'),ONCE
 
 !IO Handle
@@ -81,10 +81,10 @@ writeLine                       PROCEDURE(STRING strToWrite), BOOL, PROC
                     END
 
 WIN:CON:Reader      CLASS(WIN:CON:_Base), MODULE('WindowsConsole.CLW'), LINK('WindowsConsole.CLW',_ABCLinkMode_), TYPE
-init                            PROCEDURE (),BOOL,PROC
-getBytesRead                    PROCEDURE(),ULONG
-read                            PROCEDURE(*CSTRING outputBuffer, WIN:DWORD bufferLength),BOOL,PROC
-readLine 			            PROCEDURE (),STRING
+init                    PROCEDURE (),BOOL,PROC
+getBytesRead            PROCEDURE(),ULONG
+read                    PROCEDURE(*CSTRING outputBuffer, WIN:DWORD bufferLength),BOOL,PROC
+readLine                PROCEDURE (),STRING
                     END
 
 

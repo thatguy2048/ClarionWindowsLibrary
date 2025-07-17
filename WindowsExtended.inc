@@ -22,7 +22,6 @@ E_POINTER               EQUATE(80004003H)
 E_UNEXPECTED            EQUATE(8000FFFFH)
                     END
 
-
 WIN:UUID GROUP,TYPE
 Data1           ULONG
 Data2           USHORT
@@ -34,14 +33,14 @@ END
         MODULE('WinAPI')
             !From WINDOWS.INC
             WIN:CloseHandle(WIN:HANDLE hObject),BOOL,PASCAL,PROC,NAME('CloseHandle')
-            WIN:CreateSemaphore(<*SECURITY_ATTRIBUTES lpSemaphoreAttributes>, LONG lInitialCount, LONG lMaximumCount, *CSTRING lpName), LONG, RAW, PASCAL, NAME('CreateSemaphoreA')
-            WIN:FindWindow(<*CSTRING lpClassName>, *CSTRING lpWindowName),UNSIGNED,PASCAL,RAW,NAME('FindWindowA')
+            WIN:CreateSemaphore(<*SECURITY_ATTRIBUTES lpSemaphoreAttributes>, LONG lInitialCount, LONG lMaximumCount, *WIN:CSTR lpName), LONG, RAW, PASCAL, NAME('CreateSemaphoreA')
+            WIN:FindWindow(<*WIN:CSTR lpClassName>, *WIN:CSTR lpWindowName),WIN:HANDLE,PASCAL,RAW,NAME('FindWindowA')            
             WIN:FreeLibrary(WIN:HMODULE hModule),BOOL,PASCAL,PROC,NAME('FreeLibrary')
             WIN:GetDC(WIN:HWND),WIN:HDC,PASCAL,PROC,NAME('GetDC')
             WIN:GetDeviceCaps(WIN:HDC, SIGNED),SIGNED,PASCAL,NAME('GetDeviceCaps')
             !WIN:GetLastError(),LONG,PASCAL,NAME('GetLastError')
             WIN:GetOpenFileName(LONG),pascal,bool,proc,name('GetOpenFileNameA')
-            WIN:GetPrivateProfileString(*WIN:LPCSTR,*WIN:LPCSTR,*WIN:LPCSTR,*WIN:LPCSTR,WIN:DWORD,*WIN:LPCSTR),WIN:DWORD,PASCAL,RAW,NAME('GetPrivateProfileStringA')
+            WIN:GetPrivateProfileString(*WIN:CSTR,*WIN:CSTR,*WIN:CSTR,*WIN:CSTR,WIN:DWORD,*WIN:CSTR),WIN:DWORD,PASCAL,RAW,NAME('GetPrivateProfileStringA')
             WIN:GetProcAddress(WIN:HMODULE hModule, *CSTRING szProcName),LONG,PASCAL,RAW,NAME('GetProcAddress')
             WIN:GetSaveFileName(LONG),pascal,bool,proc,name('GetSaveFileNameA')
             WIN:GetSystemMetrics(SIGNED),SIGNED,PASCAL,NAME('GetSystemMetrics')

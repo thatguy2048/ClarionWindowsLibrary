@@ -4,7 +4,7 @@
 OMIT('_END_OF_CODE_',_WINDOWS_CONSOLE_API_INC_)
 _WINDOWS_CONSOLE_API_INC_        EQUATE(1)
 
-INCLUDE('WindowsExtended.inc'),ONCE
+INCLUDE('WindowsTypes.inc'),ONCE
 
 ! The possible results from allocating a console with options
 WIN:CON:ALLOC:RESULT        ITEMIZE,PRE
@@ -43,13 +43,12 @@ bottom                  WIN:SHORT ! The y coordinate of the lower right corner
             WIN:CON:Attach(WIN:DWORD dwProcessId = -1),BOOL,PASCAL,RAW,NAME('AttachConsole'); ! Attach this process to a console identified by the id, -1 is the parent process
             WIN:CON:Free(),BOOL,PASCAL,RAW,NAME('FreeConsole'); ! Detach from a console
             WIN:CON:GetStdHandle(WIN:DWORD consoleHandleType),WIN:HANDLE,PASCAL,PROC,RAW,NAME('GetStdHandle') ! Retrieves a handle to the specified standard device (standard input, standard output, or standard error).
-            WIN:CON:Write(WIN:HANDLE consoleHandle,CONST *CSTRING buffer, WIN:DWORD bufferLength, *WIN:DWORD outputBytesWritten, WIN:LPVOID reserved = NULL),BOOL,RAW,PASCAL,NAME('WriteConsoleA') ! Writes a character string to a console screen buffer beginning at the current cursor location.  
-            WIN:CON:Read(WIN:HANDLE consoleHandle, *CSTRING outputBuffer, WIN:DWORD numberOfCharactersToRead, *WIN:DWORD numberOfCharactersRead, WIN:LPVOID readConsoleConstrolStruct = NULL),BOOL,RAW,PASCAL,PROC,NAME('ReadConsoleA') ! Reads character input from the console input buffer and removes it from the buffer.            
+            WIN:CON:Write(WIN:HANDLE consoleHandle,CONST *CSTRING buffer, WIN:DWORD bufferLength, *WIN:DWORD outputBytesWritten, WIN:LPVOID reserved = WIN:NULL),BOOL,RAW,PASCAL,NAME('WriteConsoleA') ! Writes a character string to a console screen buffer beginning at the current cursor location.  
+            WIN:CON:Read(WIN:HANDLE consoleHandle, *CSTRING outputBuffer, WIN:DWORD numberOfCharactersToRead, *WIN:DWORD numberOfCharactersRead, WIN:LPVOID readConsoleConstrolStruct = WIN:NULL),BOOL,RAW,PASCAL,PROC,NAME('ReadConsoleA') ! Reads character input from the console input buffer and removes it from the buffer.            
             WIN:CON:SetMode(WIN:HANDLE consoleHandle, WIN:DWORD modeFlag),BOOL,PROC,RAW,PASCAL,NAME('SetConsoleMode') ! Sets the input mode of a console's input buffer or the output mode of a console screen buffer.
             WIN:CON:GetMode(WIN:HANDLE consoleHandle, *WIN:DWORD outputModeFlag),BOOL,RAW,PASCAL,NAME('GetConsoleMode') ! Retrieves the current input mode of a console's input buffer or the current output mode of a console screen buffer.
             WIN:CON:GetCP(),UNSIGNED,RAW,PASCAL,NAME('GetConsoleCP') ! Get the console code page identifier (also a reliable way to determine if the console is attached)
-            !WIN:CON:SetWindowInfo(WIN:HANDLE outputConsoleHandle, BOOL isAbsolute, CONST * WIN:CON:SMALL_RECT),BOOL,PROC,PASCAL,RAW,NAME('SetConsoleWindowInfo') ! Set the windows position of an output console
-            WIN:CON:SetWindowInfo(WIN:HANDLE outputConsoleHandle, BOOL isAbsolute, *WIN:CON:SMALL_RECT),BOOL,PROC,PASCAL,RAW,NAME('SetConsoleWindowInfo') ! Set the windows position of an output console
+            WIN:CON:SetWindowInfo(WIN:HANDLE outputConsoleHandle, BOOL isAbsolute, CONST *WIN:CON:SMALL_RECT),BOOL,PROC,PASCAL,RAW,NAME('SetConsoleWindowInfo') ! Set the windows position of an output console
         END
     END
 
