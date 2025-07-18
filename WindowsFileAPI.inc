@@ -61,6 +61,7 @@ PINNED                          EQUATE(00080000H)
 UNPINNED                        EQUATE(00100000H)
 RECALL_ON_OPEN                  EQUATE(00040000H)
 RECALL_ON_DATA_ACCESS           EQUATE(00400000H)
+INVALID                         EQUATE(0FFFFFFFFH) ! Clarion makes this a SIGNED -1, when it need to be unsigned to do a comparison, using binary comparison like BAND() will work
                             END
 
 WIN:FIL:PROPERTY:FLAG       ITEMIZE,PRE
@@ -150,6 +151,7 @@ VOLUME_NT                       EQUATE(2H)
             WIN:FIL:GetFileSizeEx(WIN:HANDLE fileHandle, *WIN:LARGE_INT fileSize),BOOL,RAW,PASCAL,NAME('GetFileSizeEx')
             WIN:FIL:GetFileType(WIN:HANDLE fileHandle),WIN:DWORD,RAW,PASCAL,NAME('GetFileType') ! returns WIN:FIL:TYPE
             WIN:FIL:GetFileTime(WIN:HANDLE fileHandle, *WIN:FIL:TIME creationTime, *WIN:FIL:TIME accessTime, *WIN:FIL:TIME writeTime),BOOL,RAW,PASCAL,NAME('GetFileTime')
+            WIN:FIL:GetFIleAttributes(*WIN:CSTR fileName),WIN:DWORD,RAW,PASCAL,NAME('GetFileAttributesA') ! returns WIN:FIL:ATTRIBUTE:FLAG
             WIN:FIL:GetFinalPathNameByHandle(WIN:HANDLE fileHandle, *WIN:CSTR outputFilePath, WIN:DWORD filePathSize, WIN:DWORD nameTypeFlag | ! WIN:FIL:NAME:GET:TYPE
                 ),WIN:DWORD, | ! The number of bytes written to outputFilePath, if the number is larger than filePathSize, then a larger buffer is needed
                 RAW,PASCAL,NAME('GetFinalPathNameByHandleA')
